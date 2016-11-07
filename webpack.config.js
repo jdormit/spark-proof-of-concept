@@ -1,6 +1,7 @@
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
-    context: __dirname + "/src",
-    entry: './index.js',
+    entry: __dirname + '/src/index.js',
     output: {
         filename: 'bundle.js',
         path: __dirname + '/dist'
@@ -19,5 +20,15 @@ module.exports = {
                 }
             }
         ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: 'src/index.html'
+        })
+    ],
+    vue: {
+        loaders: {
+            js: 'babel?presets[]=es2015'
+        }
     }
 }
