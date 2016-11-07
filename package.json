@@ -3,6 +3,10 @@
     "version": "0.0.0",
     "description": "Proof of concept for the Spark collaborative text editor",
     "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "build": "webpack"
+    },
     "repository": {
         "url": "git@github.com:jdormit/spark-proof-of-concept.git",
         "type": "git"
