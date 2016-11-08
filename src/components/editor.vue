@@ -1,9 +1,7 @@
 <template>
     <div>
         <div class="text-buffer" tabindex="1">
-            <div v-for="(row, index) in rows" :key="index">
-                {{ row }}
-            </div>
+            <div class="row" v-for="(row, index) in rows" :key="index">{{row}}</div>
         </div>
     </div>
 </template>
@@ -47,5 +45,9 @@
      width: 500px;
      height: 750px;
      border: 1px solid black;
+ }
+
+ .row {
+     white-space: pre;
  }
 </style>
