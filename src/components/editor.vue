@@ -12,11 +12,25 @@
      name: 'editor',
      mounted() {
          const self = this;
-         const writer = new Remington(this.$el, function(inputEvent) {
+         const writer = new Remington(this.$el, this.rows, function(inputEvent) {
              for (let i = 0; i < writer.getBuffer().length; i++) {
                  self.rows.splice(i, 1, writer.getBuffer()[i]);
              }
          });
+     },
+     methods: {
+         parseInitialRows(initialRows) {
+             if (Array.isArray(initialRows)) {
+                 return initialRows;
+             }
+             else {
+                 const rows = initialRows.split('\n');
+                 for (let i = 0; i < rows.length; i++) {
+                     rows[i] += '\n';
+                 }
+                 return rows;
+             }
+         }
      },
      props: {
          'initialRows': {
@@ -25,7 +39,7 @@
          },
          'initialCursors': {
              type: Array,
-             default: () => []
+             default: () => [{row: 0, col: 0}]
          },
          'filename': {
              type: String,
@@ -34,7 +48,7 @@
      },
      data() {
          return {
-             'rows': this.initialRows,
+             'rows': Array.isArray(this.initialRows) ? this.initialRows : this.parseInitialRows(this.initialRows),
              'cursors': this.initialCursors
          };
      }
