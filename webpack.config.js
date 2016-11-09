@@ -1,7 +1,7 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: __dirname + '/src/index.js',
+    entry: __dirname + '/client/index.js',
     output: {
         filename: 'bundle.js',
         path: __dirname + '/dist'
@@ -23,7 +23,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'src/index.html'
+            template: 'client/index.html'
         })
     ],
     vue: {
