@@ -2917,17 +2917,6 @@ sntp@1.x.x:
   dependencies:
     hoek "2.x.x"
 
-socket.io:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/socket.io/-/socket.io-1.5.1.tgz#c3ea8c4ed4164436bc56adef60e31ad366518ca9"
-  dependencies:
-    debug "2.2.0"
-    engine.io "1.7.2"
-    has-binary "0.1.7"
-    socket.io-adapter "0.4.0"
-    socket.io-client "1.5.1"
-    socket.io-parser "2.3.1"
-
 socket.io-adapter@0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/socket.io-adapter/-/socket.io-adapter-0.4.0.tgz#fb9f82ab1aa65290bf72c3657955b930a991a24f"
@@ -2935,7 +2924,7 @@ socket.io-adapter@0.4.0:
     debug "2.2.0"
     socket.io-parser "2.2.2"
 
-socket.io-client, socket.io-client@1.5.1:
+socket.io-client@^1.5.1, socket.io-client@1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-1.5.1.tgz#0f366eae7de34bc880ebd71106e1ce8143775827"
   dependencies:
@@ -2969,6 +2958,17 @@ socket.io-parser@2.3.1:
     debug "2.2.0"
     isarray "0.0.1"
     json3 "3.3.2"
+
+socket.io@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/socket.io/-/socket.io-1.5.1.tgz#c3ea8c4ed4164436bc56adef60e31ad366518ca9"
+  dependencies:
+    debug "2.2.0"
+    engine.io "1.7.2"
+    has-binary "0.1.7"
+    socket.io-adapter "0.4.0"
+    socket.io-client "1.5.1"
+    socket.io-parser "2.3.1"
 
 sort-keys@^1.0.0:
   version "1.1.2"
