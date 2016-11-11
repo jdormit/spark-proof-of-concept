@@ -97,14 +97,16 @@
 </script>
 <style>
  .text-buffer {
-     width: 500px;
-     height: 750px;
      border: 1px solid black;
+     padding: 4px;
+     margin: auto;
+     outline: none;
+     font-family: monospace;
+     text-align: left;
  }
  .row-container {
      position: relative;
  }
-
  .row {
      white-space: pre;
  }

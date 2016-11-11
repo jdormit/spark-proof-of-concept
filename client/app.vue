@@ -19,3 +19,10 @@
      }
  }
 </script>
+<style>
+ .container {
+     margin: auto;
+     width: 80%;
+     text-align: center;
+ }
+</style>
