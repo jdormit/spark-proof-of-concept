@@ -674,6 +674,10 @@ buffer@^4.9.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
+calculate-pixel-size:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/calculate-pixel-size/-/calculate-pixel-size-1.0.0.tgz#620d00902f8e0bf2daa616f6bb59ed19c89993b6"
+
 callsite@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/callsite/-/callsite-1.0.0.tgz#280398e5d664bd74038b6f0905153e6e8af1bc20"
@@ -2758,9 +2762,9 @@ relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
 
-remington@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/remington/-/remington-0.2.0.tgz#c6c78a8fc2b38ce34d78ef060a875062eaa5f4b8"
+remington@*:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/remington/-/remington-0.2.4.tgz#50d9fd16eb779294b4e1fc31dfadfb16faabadbc"
   dependencies:
     babel-core "^6.18.2"
     babel-loader "^6.2.7"
