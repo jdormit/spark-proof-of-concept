@@ -132,6 +132,7 @@
      outline: none;
      font-family: monospace;
      text-align: left;
+     overflow-x: scroll;
  }
  .row-container {
      position: relative;
