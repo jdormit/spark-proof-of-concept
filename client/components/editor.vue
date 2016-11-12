@@ -19,11 +19,11 @@
      mounted() {
          const self = this;
          self.rows = self.parseRows(self.text);
-         const writer = new Remington(this.$el, this.rows, function(inputEvent) {
-             for (let i = 0; i < writer.getBuffer().length; i++) {
-                 self.rows.splice(i, 1, writer.getBuffer()[i]);
+         self.writer = new Remington(this.$el, this.rows, function(inputEvent) {
+             for (let i = 0; i < self.writer.getBuffer().length; i++) {
+                 self.rows.splice(i, 1, self.writer.getBuffer()[i]);
              }
-             self.cursors.self = writer.getCursor();
+             self.cursors.self = self.writer.getCursor();
          });
       },
      methods: {
