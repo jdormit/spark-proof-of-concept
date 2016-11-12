@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="text-buffer" tabindex="1" autofocus>
+        <div class="text-buffer" v-on:keydown="handleKeydown" tabindex="1" autofocus>
             <div v-for="(row, index) in rows" :key="index" class="row-container">
                 <div v-for="cursor in cursorsAtRow(index)">
                     <span v-bind:style="calculateCursorPositionStyle(cursor)" class="cursor"></span>
@@ -63,6 +63,35 @@
                  left: leftOffset + "px",
                  width: cursorWidth + "px",
                  height: cursorHeight + "px"
+             }
+         },
+         handleKeydown(event) {
+             var preventDefault = true;
+             switch(event.keyCode) {
+                 // Up
+                 case 38:
+                     this.writer.setCursor(this.writer.getCursor().col, this.writer.getCursor().row - 1);
+                     break;
+                 // Down
+                 case 40:
+                     this.writer.setCursor(this.writer.getCursor().col, this.writer.getCursor().row + 1);
+                     break;
+                 // Left
+                 case 37:
+                     this.writer.setCursor(this.writer.getCursor().col - 1, this.writer.getCursor().row);
+                     break;
+                 // Right
+                 case 39:
+                     this.writer.setCursor(this.writer.getCursor().col + 1, this.writer.getCursor().row);
+                     break;
+                 default:
+                     preventDefault = false;
+                     break;
+             }
+             this.cursors.self = this.writer.getCursor();
+             if (preventDefault) {
+                 event.preventDefault();
+                 event.stopPropagation();
              }
          }
      },
