@@ -84,7 +84,7 @@
              }
          },
          handleKeydown(event) {
-             var preventDefault = true;
+             var validKeydown = true;
              switch(event.keyCode) {
                  // Up
                  case 38:
@@ -103,11 +103,11 @@
                      this.writer.setCursor(this.writer.getCursor().col + 1, this.writer.getCursor().row);
                      break;
                  default:
-                     preventDefault = false;
+                     validKeydown = false;
                      break;
              }
              this.cursors.self = this.writer.getCursor();
-             if (preventDefault) {
+             if (validKeydown) {
                  event.preventDefault();
                  event.stopPropagation();
              }
