@@ -24,6 +24,24 @@
                  self.rows.splice(i, 1, self.writer.getBuffer()[i]);
              }
              self.cursors.self = self.writer.getCursor();
+             // Figure out whether to serialize the character or the keyCode.
+             // This jank is a result of the buffer abstraction.
+             // A better choice would have been to separate the buffer API from
+             // the input API
+             switch(inputEvent.type) {
+                 case "keypress":
+                     self.$emit('input', {
+                         cursor: self.writer.getCursor(),
+                         value: inputEvent.key
+                     });
+                     break;
+                 case "keydown":
+                     self.$emit('input', {
+                         cursor: self.writer.getCursor(),
+                         value: inputEvent.keyCode
+                     });
+                     break;
+             }
          });
       },
      methods: {
