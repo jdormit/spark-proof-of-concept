@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <editor v-on:input="serializeInput" v-bind:text="text" filename="test"></editor>
+        <editor v-on:input="serializeInput" v-bind:text="text" v-bind:inputBuffer="inputBuffer" filename="test"></editor>
     </div>
 </template>
 <script>
@@ -24,6 +24,11 @@
              required: true
          }
      },
+     data() {
+         return {
+             inputBuffer: []
+         };
+     },
      components: {
          'editor': Editor
      },
@@ -35,6 +40,9 @@
                  self.socket.emit("input", inputBuffer);
              }
          }, SEND_INPUT_INTERVAL);
+         self.socket.on("input", function(inputBuffer) {
+             self.inputBuffer = inputBuffer;
+         });
      },
      methods: {
          serializeInput: function(input) {

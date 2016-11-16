@@ -1,4 +1,3 @@
-
 var fs = require('fs');
 var http = require('http');
 var socketIO = require('socket.io');
@@ -30,6 +29,7 @@ io.on('connection', function(socket) {
             writer.setCursor(input.cursor.col, input.cursor.row);
             writer.sendInput(input.value);
         });
+        socket.broadcast.emit('input', inputBuffer);
     });
 
     // This probably won't scale

@@ -23,6 +23,7 @@
              for (let i = 0; i < self.writer.getBuffer().length; i++) {
                  self.rows.splice(i, 1, self.writer.getBuffer()[i]);
              }
+             const oldCursor = Object.assign({}, inputEvent.oldCursor);
              self.cursors.self = self.writer.getCursor();
              // Figure out whether to serialize the character or the keyCode.
              // This jank is a result of the buffer abstraction.
@@ -31,13 +32,13 @@
              switch(inputEvent.type) {
                  case "keypress":
                      self.$emit('input', {
-                         cursor: self.writer.getCursor(),
+                         cursor: oldCursor,
                          value: inputEvent.key
                      });
                      break;
                  case "keydown":
                      self.$emit('input', {
-                         cursor: self.writer.getCursor(),
+                         cursor: oldCursor,
                          value: inputEvent.keyCode
                      });
                      break;
@@ -132,6 +133,24 @@
          'filename': {
              type: String,
              required: true
+         },
+         'inputBuffer': {
+             type: Array,
+             required: true
+         }
+     },
+     watch: {
+         'inputBuffer': function(buffer) {
+             var self = this;
+             const cursorPos = Object.assign({}, self.writer.getCursor());
+             buffer.forEach(function(input) {
+                 self.writer.setCursor(input.cursor.col, input.cursor.row);
+                 self.writer.sendInput(input.value);
+             });
+             self.writer.setCursor(cursorPos.col, cursorPos.row);
+             for (let i = 0; i < self.writer.getBuffer().length; i++) {
+                 self.rows.splice(i, 1, self.writer.getBuffer()[i]);
+             }
          }
      },
      data() {
