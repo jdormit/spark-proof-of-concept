@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <editor v-on:input="serializeInput" v-bind:text="text" v-bind:inputBuffer="inputBuffer" filename="test"></editor>
+        <editor v-on:input="serializeInput" v-bind:text="text" v-bind:inputBuffer="inputBuffer" v-bind:remoteCursors="cursors" filename="test"></editor>
     </div>
 </template>
 <script>
@@ -22,11 +22,16 @@
          'socket': {
              type: Object,
              required: true
+         },
+         'id': {
+             type: String,
+             required: true
          }
      },
      data() {
          return {
-             inputBuffer: []
+             inputBuffer: [],
+             cursors: {}
          };
      },
      components: {
@@ -42,6 +47,11 @@
          }, SEND_INPUT_INTERVAL);
          self.socket.on("input", function(inputBuffer) {
              self.inputBuffer = inputBuffer;
+         });
+         self.socket.on("cursors", function(cursors) {
+             cursors.self = cursors[self.id];
+             delete cursors[self.id];
+             self.cursors = cursors;
          });
      },
      methods: {

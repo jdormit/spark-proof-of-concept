@@ -7,13 +7,14 @@ import InputSerializer from './input-serializer';
 const socket = io();
 const inputSerializer = new InputSerializer();
 
-socket.on('fileText', function(text) {
+socket.on('init', function(initData) {
     new Vue({
         el: '#app',
         render: function(createElement) {
             return createElement(App, {
                 props: {
-                    text: text,
+                    text: initData.text,
+                    id: initData.id,
                     inputSerializer: inputSerializer,
                     socket: socket
                 }
