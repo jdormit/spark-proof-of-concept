@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <editor v-on:input="serializeInput" v-bind:text="text" v-bind:inputBuffer="inputBuffer" v-bind:remoteCursors="cursors" filename="test"></editor>
+        <editor v-on:input="serializeInput" v-on:cursor="sendCursorData" v-bind:text="text" v-bind:inputBuffer="inputBuffer" v-bind:remoteCursors="cursors" filename="test"></editor>
     </div>
 </template>
 <script>
@@ -57,6 +57,9 @@
      methods: {
          serializeInput: function(input) {
              this.inputSerializer.addInput(input);
+         },
+         sendCursorData: function(cursor) {
+             this.socket.emit("cursor", cursor);
          }
      }
  }

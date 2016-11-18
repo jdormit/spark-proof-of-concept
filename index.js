@@ -43,6 +43,11 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('cursors', cursors);
     });
 
+    socket.on('cursor', function(cursor) {
+        cursors[socket.id] = cursor;
+        socket.broadcast.emit('cursors', cursors);
+    });
+
     // This probably won't scale
     socket.on('save', function() {
         fs.writeFileSync(filename, writer.getBufferText());

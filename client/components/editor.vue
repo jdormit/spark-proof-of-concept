@@ -2,8 +2,8 @@
     <div>
         <div class="text-buffer" v-on:keydown="handleKeydown" tabindex="1" autofocus>
             <div v-for="(row, index) in rows" :key="index" class="row-container">
-                <div v-for="cursor in cursorsAtRow(index)">
-                    <span v-bind:style="calculateCursorPositionStyle(cursor)" class="cursor"></span>
+                <div v-for="cursor in cursors">
+                    <span v-if="cursor.row === index" v-bind:style="calculateCursorPositionStyle(cursor)" class="cursor"></span>
                 </div>
                 <span class="row">{{row}}</span>
             </div>
@@ -58,16 +58,6 @@
                  return rows;
              }
          },
-         cursorsAtRow(row) {
-             const cursors = [];
-             Object.keys(this.cursors).forEach((cursorName) => {
-                 const cursor = this.cursors[cursorName];
-                 if (cursor.row === row) {
-                     cursors.push(cursor);
-                 }
-             });
-             return cursors;
-         },
          calculateCursorPositionStyle(cursor) {
              const styleOptions = {
                  style: {
@@ -84,30 +74,34 @@
                  height: cursorHeight + "px"
              }
          },
+         moveCursor(colChange, rowChange) {
+             this.writer.setCursor(this.writer.getCursor().col + colChange, this.writer.getCursor().row + rowChange);
+             this.cursors.self = this.writer.getCursor();
+             this.$emit('cursor', this.writer.getCursor());
+         },
          handleKeydown(event) {
              var validKeydown = true;
              switch(event.keyCode) {
                  // Up
                  case 38:
-                     this.writer.setCursor(this.writer.getCursor().col, this.writer.getCursor().row - 1);
+                     this.moveCursor(0, -1);
                      break;
                  // Down
                  case 40:
-                     this.writer.setCursor(this.writer.getCursor().col, this.writer.getCursor().row + 1);
+                     this.moveCursor(0, 1);
                      break;
                  // Left
                  case 37:
-                     this.writer.setCursor(this.writer.getCursor().col - 1, this.writer.getCursor().row);
+                     this.moveCursor(-1, 0);
                      break;
                  // Right
                  case 39:
-                     this.writer.setCursor(this.writer.getCursor().col + 1, this.writer.getCursor().row);
+                     this.moveCursor(1, 0);
                      break;
                  default:
                      validKeydown = false;
                      break;
              }
-             this.cursors.self = this.writer.getCursor();
              if (validKeydown) {
                  event.preventDefault();
                  event.stopPropagation();
@@ -130,6 +124,10 @@
                  };
              }
          },
+         'remoteCursors': {
+             type: Object,
+             required: true
+         },
          'filename': {
              type: String,
              required: true
@@ -151,6 +149,17 @@
              for (let i = 0; i < self.writer.getBuffer().length; i++) {
                  self.rows.splice(i, 1, self.writer.getBuffer()[i]);
              }
+         },
+         'remoteCursors': function(cursors) {
+             const newCursors = {};
+             for (let cursorName in cursors) {
+                 let currentCursor = cursors[cursorName];
+                 if (!this.cursors[cursorName]) {
+                     this.cursors[cursorName] = {};
+                 }
+                 newCursors[cursorName] = currentCursor;
+             }
+             this.cursors = newCursors;
          }
      },
      data() {
