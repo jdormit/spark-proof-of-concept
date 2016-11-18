@@ -44,6 +44,9 @@
                      break;
              }
          });
+         
+         // Focus the editor
+         self.$el.getElementsByClassName("text-buffer")[0].focus();
       },
      methods: {
          parseRows(text) {
