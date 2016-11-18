@@ -1,6 +1,14 @@
 <template>
     <div class="container">
-        <editor v-on:input="serializeInput" v-on:cursor="sendCursorData" v-bind:text="text" v-bind:inputBuffer="inputBuffer" v-bind:remoteCursors="cursors" filename="test"></editor>
+        <editor
+            v-on:input="serializeInput"
+            v-on:cursor="sendCursorData"
+            v-on:save="handleSave"
+            v-bind:text="text"
+            v-bind:inputBuffer="inputBuffer"
+            v-bind:remoteCursors="cursors"
+            filename="test">
+        </editor>
     </div>
 </template>
 <script>
@@ -60,6 +68,9 @@
          },
          sendCursorData: function(cursor) {
              this.socket.emit("cursor", cursor);
+         },
+         handleSave: function() {
+             this.socket.emit("save");
          }
      }
  }

@@ -84,27 +84,37 @@
              switch(event.keyCode) {
                  // Up
                  case 38:
+                     event.preventDefault();
+                     event.stopPropagation();
                      this.moveCursor(0, -1);
                      break;
                  // Down
                  case 40:
+                     event.preventDefault();
+                     event.stopPropagation();
                      this.moveCursor(0, 1);
                      break;
                  // Left
                  case 37:
+                     event.preventDefault();
+                     event.stopPropagation();
                      this.moveCursor(-1, 0);
                      break;
                  // Right
                  case 39:
+                     event.preventDefault();
+                     event.stopPropagation();
                      this.moveCursor(1, 0);
                      break;
-                 default:
-                     validKeydown = false;
+                 // ctrl-s
+                 case 83:
+                     if (event.ctrlKey) {
+                         event.preventDefault();
+                         event.stopPropagation();
+                         this.$emit('save');
+                         alert("Document saved.");
+                     }
                      break;
-             }
-             if (validKeydown) {
-                 event.preventDefault();
-                 event.stopPropagation();
              }
          }
      },
