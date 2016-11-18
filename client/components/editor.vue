@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="text-buffer" v-on:keydown="handleKeydown" tabindex="1" autofocus>
+        <div class="text-buffer" v-on:keydown="handleKeydown" tabindex="1">
             <div v-for="(row, index) in rows" :key="index" class="row-container">
                 <div v-for="cursor in cursors">
                     <span v-if="cursor.row === index" v-bind:style="calculateCursorPositionStyle(cursor)" class="cursor"></span>
